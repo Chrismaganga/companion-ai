@@ -1,10 +1,7 @@
-
-
 import './globals.css'
 import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from '@/components/theme-provider'
-
 
 export const metadata: Metadata = {
   title: 'Companion-ai-clone',
@@ -19,10 +16,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body>{children}</body>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <body>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             {children}
           </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   )

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { CldUploadButton } from "next-cloudinary";
+import { CldUploadButton, CldUploadWidgetResults } from "next-cloudinary";
 
 import { Button } from "@/components/ui/button";
 import { ImageIcon, X } from "lucide-react";
@@ -24,40 +24,58 @@ export const ImageUpload = ({
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) {
-    return false;
-  }
+  const uploadContent = (
+    <div
+      className={`
+        p-4 
+        border-4 
+        border-dashed
+        border-primary/10 
+        rounded-lg 
+        transition 
+        flex 
+        flex-col 
+        space-y-2 
+        items-center 
+        justify-center
+        ${!disabled && 'hover:opacity-75'}
+        ${disabled && 'opacity-50 cursor-not-allowed pointer-events-none'}
+      `}
+    >
+      <div className="relative h-40 w-40">
+        <Image
+          fill
+          alt="Upload"
+          src={value || "/placeholder.svg"}
+          className="rounded-lg object-cover"
+        />
+      </div>
+    </div>
+  );
 
   return (
     <div className="space-y-4 w-full flex flex-col justify-center items-center">
-      
-      <CldUploadButton options={{ maxFiles: 1 }} onUpload={(result: any) => onChange(result.info.secure_url)} uploadPreset="t4drjppf">
-        <div 
-          className="
-            p-4 
-            border-4 
-            border-dashed
-            border-primary/10 
-            rounded-lg 
-            hover:opacity-75 
-            transition 
-            flex 
-            flex-col 
-            space-y-2 
-            items-center 
-            justify-center
-          "
+      {isMounted ? (
+        <CldUploadButton
+          options={{ maxFiles: 1 }}
+          onUpload={(results: CldUploadWidgetResults) => {
+            const info = results.info;
+            if (info && typeof info === 'object' && 'secure_url' in info) {
+              const secureUrl = info.secure_url;
+              if (typeof secureUrl === 'string') {
+                onChange(secureUrl);
+              }
+            }
+          }}
+          uploadPreset="t4drjppf"
         >
-          <div className="relative h-40 w-40">
-            <Image
-              fill
-              alt="Upload"
-              src={value || "/placeholder.svg"}
-              className="rounded-lg object-cover"
-            />
-          </div>
+          {uploadContent}
+        </CldUploadButton>
+      ) : (
+        <div className="pointer-events-none">
+          {uploadContent}
         </div>
-      </CldUploadButton>
+      )}
     </div>
   );
 };
