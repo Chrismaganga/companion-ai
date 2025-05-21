@@ -11,7 +11,12 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { useProModal } from "@/hooks/use-pro-modal";
 
-const font = Poppins({ weight: "600", subsets: ["latin"] });
+const font = Poppins({
+  weight: "600",
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["system-ui", "arial"]
+});
 interface NavbarProps {
   isPro: boolean;
 }
