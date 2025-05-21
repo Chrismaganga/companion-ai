@@ -26,7 +26,7 @@ export const Navbar = ({
 }: NavbarProps) => {
   const proModal = useProModal();
 
-  return (
+  return ( 
     <div className="fixed w-full z-50 flex justify-between items-center py-2 px-4 h-16 border-b border-primary/10 bg-secondary top-0">
       <div className="flex items-center">
         <MobileSidebar isPro={isPro} />
