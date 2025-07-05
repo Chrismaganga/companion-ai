@@ -2,15 +2,17 @@ import { LiveSession } from "@/components/live-session";
 import { notFound } from "next/navigation";
 
 interface SessionPageProps {
-    params: {
+    params: Promise<{
         sessionId: string;
-    };
+    }>;
 }
 
-export default function SessionPage({ params }: SessionPageProps) {
+export default async function SessionPage({ params }: SessionPageProps) {
+    const { sessionId } = await params;
+
     // This would typically fetch from your database
     const session = {
-        id: params.sessionId,
+        id: sessionId,
         title: "Building a React App with TypeScript",
         host: "John Doe"
     };

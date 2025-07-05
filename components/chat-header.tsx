@@ -3,18 +3,30 @@
 import axios from "axios";
 import { ChevronLeft, Edit, MessagesSquare, MoreVertical, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Companion, Message } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import { BotAvatar } from "@/components/bot-avatar";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
+
+type Companion = {
+  id: string;
+  name: string;
+  src: string;
+  userName: string;
+  userId: string;
+};
+
+type Message = {
+  id: string;
+  content: string;
+};
 
 interface ChatHeaderProps {
   companion: Companion & {
@@ -47,7 +59,7 @@ export const ChatHeader = ({
       })
     }
   }
-  
+
   return (
     <div className="flex w-full justify-between items-center border-b border-primary/10 pb-4">
       <div className="flex gap-x-2 items-center">

@@ -30,8 +30,8 @@ export const LiveSession = ({
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState("");
 
-    const handleCodeChange = (value: string) => {
-        setCode(value);
+    const handleCodeChange = (value: string | undefined) => {
+        setCode(value ?? "");
         // Here you would typically send the code update to other participants
     };
 

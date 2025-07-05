@@ -1,9 +1,18 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Companion } from "@prisma/client"
+// import { Companion } from "@prisma/client"
 import { MessagesSquare } from "lucide-react";
 
 import { Card, CardFooter, CardHeader } from "@/components/ui/card"
+
+type Companion = {
+  id: string;
+  name: string;
+  src: string;
+  userName: string;
+  userId: string;
+  description?: string;
+};
 
 interface CompanionsProps {
   data: (Companion & {

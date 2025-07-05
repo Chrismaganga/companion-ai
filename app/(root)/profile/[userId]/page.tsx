@@ -2,15 +2,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { notFound } from "next/navigation";
 
 interface ProfilePageProps {
-    params: {
+    params: Promise<{
         userId: string;
-    };
+    }>;
 }
 
-export default function ProfilePage({ params }: ProfilePageProps) {
+export default async function ProfilePage({ params }: ProfilePageProps) {
+    const { userId } = await params;
+
     // This would typically fetch from your database
     const user = {
-        id: params.userId,
+        id: userId,
         name: "John Doe",
         email: "john@example.com",
         bio: "Full-stack developer passionate about React and TypeScript",
